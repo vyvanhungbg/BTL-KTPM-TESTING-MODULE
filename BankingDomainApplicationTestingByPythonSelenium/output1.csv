@@ -1,4 +1,2 @@
 ,0,1,2,3
-0,1,3287498,123,Chuyển tiền thành công !
-1,2,3287498,123,Chuyển tiền thành công !
-2,STT,SĐT Nhận,Số tiền,Trạng thái
+0,1,3287498,123,"Số tiền trong tài khoản cần lớn hơn số tiền cần chuyển , số tiền bạn là 473266.0Nhưng bạn chuyển : 1.0E10"

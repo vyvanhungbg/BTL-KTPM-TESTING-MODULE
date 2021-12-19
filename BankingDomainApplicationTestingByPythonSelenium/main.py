@@ -9,8 +9,11 @@ import random
 import logger
 import numpy
 from GenerateTest import  *
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.get("http://localhost:8080")
+
+from openpyxl import Workbook
+
+driver = webdriver.Chrome( service=Service(ChromeDriverManager().install()))
+driver.get("http://localhost:8080/login")
 
 def login(username, password):
     input_username = driver.find_element(By.NAME, "useName")
@@ -56,7 +59,7 @@ def transaction(amount_money, number_phone_provider):
 
 def main():
     #Trang home
-    click_by_id_button("btn-login") # Chuyển trang login
+    #click_by_id_button("btn-login") # Chuyển trang login
     username = "hung"
     password = "hung123"
     # input pass and use name
@@ -66,25 +69,25 @@ def main():
     click_by_id_button("btn-transaction")
 
     #So lan test
-    loop = 2
+    loop = 100
 
     # nhập input cho form transaction
     amount_money = 123
     number_phone_provider = 3287498;
 
     #Sinh list test field
-    #list_phone = test_input_field(number_phone_provider,loop)[0]
-    #list_amount_money =  test_input_field(number_phone_provider, loop)[1]
+    list_phone = test_input_field(number_phone_provider,loop)[0]
+    list_amount_money =  test_input_field(number_phone_provider, loop)[1]
 
     #Sinh list test transaction
-    list_phone = test_transaction(number_phone_provider,loop)[0]
-    list_amount_money = test_transaction(number_phone_provider, loop)[1]
+    #list_phone = test_transaction(number_phone_provider,loop)[0]
+    #list_amount_money = test_transaction(number_phone_provider, loop)[1]
 
     header = ["STT", "SĐT Nhận", "Số tiền", "Trạng thái"]
     #df = pd.DataFrame(columns= header)
-    df = pd.DataFrame([header], columns= header)
-    for i in range(loop):
-
+    df = pd.DataFrame(columns = header)
+    for i in range(0,loop):
+        print("Test : ",i)
         mess = ""
         number_phone = random.choice(list_phone)
         money = random.choice(list_amount_money)
@@ -95,11 +98,14 @@ def main():
             print(e)
             mess = e
         loop -= 1
-        newline = [i + 1, number_phone, amount_money, mess]
+        new_row = [i + 1, number_phone, money, mess]
 
-        df = pd.DataFrame(numpy.insert(df.values, i, newline, axis=0))
-    df.to_csv('output1.csv', header = True)
-
+        df = pd.DataFrame(numpy.insert(df.values, i, new_row, axis=0))
+        print(df)
+    # df.to_csv('output1.csv', header = True)
+    df = pd.DataFrame(df.values, columns= header)
+    df.to_excel('output1.xlsx')
+    #driver.delete_all_cookies()
     driver.close()
 
 
