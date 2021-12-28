@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:utext="${title}">Trạng thái chuyển tiền : </title>
+</head>
+
+<body>
+
+<!-- Include _menu.html -->
+
+<br>
+<h2>Trạng thái chuyển tiền : </h2>
+<h2 id="span-get-status-transaction" th:utext="${message}"> </h2>
+<h4><a id="btn-return" th:href="@{/tranfer}">Click here to return </a></h4>
+</body>
+</html>
